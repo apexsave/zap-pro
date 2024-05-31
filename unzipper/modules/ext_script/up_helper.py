@@ -59,6 +59,13 @@ async def send_file(unzip_bot, c_id, doc_f, query, full_path, log_msg, split):
     try:
         ul_mode = await get_upload_mode(c_id)
         fname = os.path.basename(doc_f)
+
+        # Find the index of the directory name in the full path
+        # index = full_path.index('extracted')
+        
+        # Extract the path from the directory name onwards
+        captiooon = doc_f[-1024:]
+
         fext = (pathlib.Path(os.path.abspath(doc_f)).suffix).casefold().replace(".", "")
         thumbornot = await thumb_exists(c_id)
         upmsg = await unzipperbot.send_message(
@@ -71,7 +78,7 @@ async def send_file(unzip_bot, c_id, doc_f, query, full_path, log_msg, split):
                 await unzip_bot.send_audio(
                     chat_id=c_id,
                     audio=doc_f,
-                    caption=Messages.EXT_CAPTION.format(fname),
+                    caption=Messages.EXT_CAPTION.format(captiooon),
                     duration=metadata["duration"],
                     performer=metadata["performer"],
                     title=metadata["title"],
@@ -89,7 +96,7 @@ async def send_file(unzip_bot, c_id, doc_f, query, full_path, log_msg, split):
                 await unzip_bot.send_audio(
                     chat_id=c_id,
                     audio=doc_f,
-                    caption=Messages.EXT_CAPTION.format(fname),
+                    caption=Messages.EXT_CAPTION.format(captiooon),
                     duration=metadata["duration"],
                     performer=metadata["performer"],
                     title=metadata["title"],
@@ -108,7 +115,7 @@ async def send_file(unzip_bot, c_id, doc_f, query, full_path, log_msg, split):
                 await unzip_bot.send_photo(
                     chat_id=c_id,
                     photo=doc_f,
-                    caption=Messages.EXT_CAPTION.format(fname),
+                    caption=Messages.EXT_CAPTION.format(captiooon),
                     disable_notification=True,
                     progress=progress_for_pyrogram,
                     progress_args=(
@@ -125,7 +132,7 @@ async def send_file(unzip_bot, c_id, doc_f, query, full_path, log_msg, split):
                         chat_id=c_id,
                         document=doc_f,
                         thumb=thumb_image,
-                        caption=Messages.EXT_CAPTION.format(fname),
+                        caption=Messages.EXT_CAPTION.format(captiooon),
                         force_document=True,
                         disable_notification=True,
                         progress=progress_for_pyrogram,
@@ -140,7 +147,7 @@ async def send_file(unzip_bot, c_id, doc_f, query, full_path, log_msg, split):
                     await unzip_bot.send_document(
                         chat_id=c_id,
                         document=doc_f,
-                        caption=Messages.EXT_CAPTION.format(fname),
+                        caption=Messages.EXT_CAPTION.format(captiooon),
                         force_document=True,
                         disable_notification=True,
                         progress=progress_for_pyrogram,
@@ -158,7 +165,7 @@ async def send_file(unzip_bot, c_id, doc_f, query, full_path, log_msg, split):
                         chat_id=c_id,
                         document=doc_f,
                         thumb=thumb_image,
-                        caption=Messages.EXT_CAPTION.format(fname),
+                        caption=Messages.EXT_CAPTION.format(captiooon),
                         force_document=True,
                         disable_notification=True,
                         progress=progress_for_pyrogram,
@@ -173,7 +180,7 @@ async def send_file(unzip_bot, c_id, doc_f, query, full_path, log_msg, split):
                     await unzip_bot.send_document(
                         chat_id=c_id,
                         document=doc_f,
-                        caption=Messages.EXT_CAPTION.format(fname),
+                        caption=Messages.EXT_CAPTION.format(captiooon),
                         force_document=True,
                         disable_notification=True,
                         progress=progress_for_pyrogram,
@@ -193,7 +200,7 @@ async def send_file(unzip_bot, c_id, doc_f, query, full_path, log_msg, split):
                 await unzip_bot.send_video(
                     chat_id=c_id,
                     video=doc_f,
-                    caption=Messages.EXT_CAPTION.format(fname),
+                    caption=Messages.EXT_CAPTION.format(captiooon),
                     duration=int(vid_duration) if vid_duration.isnumeric() else 0,
                     thumb=thumb_image,
                     disable_notification=True,
@@ -222,7 +229,7 @@ async def send_file(unzip_bot, c_id, doc_f, query, full_path, log_msg, split):
                     await unzip_bot.send_video(
                         chat_id=c_id,
                         video=doc_f,
-                        caption=Messages.EXT_CAPTION.format(fname),
+                        caption=Messages.EXT_CAPTION.format(captiooon),
                         duration=int(vid_duration) if vid_duration.isnumeric() else 0,
                         thumb=str(thmb_pth),
                         disable_notification=True,
@@ -243,7 +250,7 @@ async def send_file(unzip_bot, c_id, doc_f, query, full_path, log_msg, split):
                         await unzip_bot.send_video(
                             chat_id=c_id,
                             video=doc_f,
-                            caption=Messages.EXT_CAPTION.format(fname),
+                            caption=Messages.EXT_CAPTION.format(captiooon),
                             duration=0,
                             thumb=str(Config.BOT_THUMB),
                             disable_notification=True,
@@ -259,7 +266,7 @@ async def send_file(unzip_bot, c_id, doc_f, query, full_path, log_msg, split):
                         await unzip_bot.send_document(
                             chat_id=c_id,
                             document=doc_f,
-                            caption=Messages.EXT_CAPTION.format(fname),
+                            caption=Messages.EXT_CAPTION.format(captiooon),
                             force_document=True,
                             disable_notification=True,
                             progress=progress_for_pyrogram,
@@ -277,7 +284,7 @@ async def send_file(unzip_bot, c_id, doc_f, query, full_path, log_msg, split):
                     chat_id=c_id,
                     document=doc_f,
                     thumb=thumb_image,
-                    caption=Messages.EXT_CAPTION.format(fname),
+                    caption=Messages.EXT_CAPTION.format(captiooon),
                     force_document=True,
                     disable_notification=True,
                     progress=progress_for_pyrogram,
@@ -292,7 +299,7 @@ async def send_file(unzip_bot, c_id, doc_f, query, full_path, log_msg, split):
                 await unzip_bot.send_document(
                     chat_id=c_id,
                     document=doc_f,
-                    caption=Messages.EXT_CAPTION.format(fname),
+                    caption=Messages.EXT_CAPTION.format(captiooon),
                     force_document=True,
                     disable_notification=True,
                     progress=progress_for_pyrogram,
