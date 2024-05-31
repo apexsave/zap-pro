@@ -407,8 +407,9 @@ async def unzipper_cb(unzip_bot: Client, query: CallbackQuery):
                 await del_ongoing_task(user_id)
             return
         # Check if user was dumb 😐
+        LOGGER.info("Merging of Files done...")
         LOGGER.info("ext_files_dir.. : " + ext_files_dir)
-        await rename_files_with_full_path(directory=ext_files_dir)
+        # await rename_files_with_full_path(directory=ext_files_dir)
         paths = await get_files(path=ext_files_dir)
         # LOGGER.info("paths in merged elif.. : " + str(paths))
 
