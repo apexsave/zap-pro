@@ -54,6 +54,8 @@ from .ext_script.ext_helper import (
     merge_files,
     split_files,
     rename_files_with_full_path,
+    get_all_subdirectories,
+    group_subdirectories_paths,
 )
 from .ext_script.up_helper import answer_query, get_size, send_file, send_url_logs
 
@@ -1122,6 +1124,23 @@ async def unzipper_cb(unzip_bot: Client, query: CallbackQuery):
         user_id = query.from_user.id
         spl_data = query.data.split("|")
         file_path = f"{Config.DOWNLOAD_LOCATION}/{spl_data[1]}/extracted"
+
+
+
+        #Sending all the directory paths to chat of the bot for easy reference.
+        LOGGER.info("Started collecting all the directory paths")
+        subdirectories = get_all_subdirectories(file_path)
+        groups = group_subdirectories_paths(subdirectories)
+
+        for group in groups:
+            await unzip_bot.send_message(
+                chat_id=user_id, text=group, reply_markup=Buttons.RATE_ME
+            )
+        
+        LOGGER.info("Sent all the directory paths to the bot chat")
+
+        
+
         # LOGGER.info("HASH HASH paths : " + file_path)
         # await rename_files_with_full_path(directory=ext_files_dir)
         try:
