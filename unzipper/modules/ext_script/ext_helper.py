@@ -21,6 +21,7 @@ def group_subdirectories_paths(subdirectories, max_length=4096):
     group = ''
     for subdir in subdirectories:
         # Add 1 for the newline character
+        subdir = subdir[-4090:]
         if len(group) + len(subdir) + 1 > max_length:
             groups.append(group)
             group = subdir
