@@ -11,6 +11,26 @@ from pyrogram.types import InlineKeyboardButton
 from unzipper import LOGGER
 from unzipper.modules.bot_data import Messages
 
+
+def get_all_subdirectories(directory):
+    subdirectories = [dirpath for dirpath, dirnames, filenames in os.walk(directory)]
+    return subdirectories
+
+def group_subdirectories_paths(subdirectories, max_length=4096):
+    groups = []
+    group = ''
+    for subdir in subdirectories:
+        # Add 1 for the newline character
+        if len(group) + len(subdir) + 1 > max_length:
+            groups.append(group)
+            group = subdir
+        else:
+            group = group + '\n' + subdir if group else subdir
+    if group:
+        groups.append(group)
+    return groups
+
+
 async def rename_files_with_full_path(directory):
     LOGGER.info("HASH HASH directory : " + directory)
     for root, dirs, files in os.walk(directory):
