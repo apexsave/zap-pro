@@ -14,4 +14,5 @@ pyromod==1.5
 requests==2.31.0
 TgCrypto==1.2.5
 unzip-http==0.4
+pymongo==4.8
 Flask
